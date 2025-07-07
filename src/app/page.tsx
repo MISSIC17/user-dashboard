@@ -1,10 +1,9 @@
-import { ThemeChanger } from "@/components/ui/theme-changer";
+import { TodoComponent } from "@/components/custom/todo";
 
 export default function Home() {
   return (
-    <div>
-      <ThemeChanger />
-      Home page
-    </div>
+    <main className="container max-h-dvh overflow-hidden">
+      <TodoComponent />
+    </main>
   );
 }
