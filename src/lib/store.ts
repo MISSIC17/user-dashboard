@@ -1,8 +1,13 @@
+import { todosApi } from "@/lib/services/todos";
 import { configureStore } from "@reduxjs/toolkit";
 
 export const makeStore = () => {
   return configureStore({
-    reducer: { },
+    reducer: {
+      [todosApi.reducerPath]: todosApi.reducer,
+    },
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(todosApi.middleware),
   });
 };
 
