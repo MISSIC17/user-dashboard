@@ -12,6 +12,9 @@ import {
 } from "@/components/ui/select";
 export const ThemeChanger = () => {
   const { theme, setTheme } = useTheme();
+  React.useEffect(() => {
+    if (!theme) setTheme("dark");
+  }, []);
 
   return (
     <Select value={theme || "dark"} onValueChange={(value) => setTheme(value)}>
