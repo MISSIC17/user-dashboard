@@ -30,7 +30,7 @@ export function AddButton() {
         }}
         id="todo-input"
         placeholder="Add a new todo..."
-        className="lg:w-64 w-48 lg:text-base text-sm md:py-1 py-0.5 max-w-64 flex-1 text-foreground dark:placeholder:!text-foreground/70 border-foreground"
+        className="lg:w-64 w-48 lg:text-base text-sm md:py-1 py-0.5 max-w-64 flex-1 text-foreground dark:placeholder:!text-foreground/70 border-foreground/70"
       />
       <Button
         onClick={submitHandler}

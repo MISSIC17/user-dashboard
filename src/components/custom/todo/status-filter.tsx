@@ -16,7 +16,7 @@ export function StatusFilter() {
     <Select
       onValueChange={(value) => dispatch(setFilter(value as TFilterStatus))}
     >
-      <SelectTrigger className="lg:w-[120px] border-foreground text-foreground">
+      <SelectTrigger className="lg:w-[120px] border-foreground/70 text-foreground">
         <SelectValue
           placeholder="Status"
           className="!text-foreground dark:!text-white"

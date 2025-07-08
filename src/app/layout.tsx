@@ -18,8 +18,20 @@ const grotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "User Dashboard",
-  description: "A user dashboard application",
+  title: "Todo",
+  description: "A todo application",
+  openGraph: {
+    title: "Todo",
+    description: "A todo application",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 415,
+        height: 200,
+        alt: "Open Graph Image",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
