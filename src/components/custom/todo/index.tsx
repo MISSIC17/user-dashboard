@@ -27,7 +27,7 @@ export function TodoComponent() {
       className="relative table-scrollbar prose rounded-lg md:rounded-3xl border-4 border-red-400 dark:border-red-900 h-[calc(100dvh-80px-var(--header-height))] overflow-auto mx-auto mt-5"
     >
       {/* //* Header */}
-      <div className="bg-background z-10 px-2 py-2 md:px-4 md:py-2 sticky md:flex-row flex-col top-0 left-0 w-full max-[350px]:h-40 max-[400px]:h-28 md:h-20 flex gap-y-4 lg:items-center md:justify-between">
+      <div className="bg-background z-10 px-2 py-2 md:px-4 md:py-2 sticky md:flex-row flex-col top-0 left-0 w-full h-30 max-[400px]:h-40 md:h-20 flex gap-y-4 lg:items-center md:justify-between">
         <span className="flex items-center gap-x-2 md:justify-start justify-center">
           <span className="p-1 rounded-md bg-red-100 text-red-900 dark:bg-red-800 dark:text-red-50">
             <ListCheckIcon />
@@ -76,7 +76,7 @@ function TodoItem({ todo }: { todo: TTodo }) {
       htmlFor={`todo-${todo.id}`}
       className={cn(
         "border border-gray-500 p-1.5 md:p-3 relative rounded-sm md:rounded-xl grid grid-cols-[10%_auto] hover:bg-foreground/5 cursor-pointer transition-colors ease-in-out",
-        todo.completed && "opacity-50"
+        todo.completed && "opacity-50",
       )}
     >
       <Checkbox
@@ -90,7 +90,7 @@ function TodoItem({ todo }: { todo: TTodo }) {
       <h3
         className={cn(
           "text-foreground !m-0 font-grotesk font-medium text-sm md:text-lg",
-          todo.completed && "line-through"
+          todo.completed && "line-through",
         )}
       >
         {todo.title}
