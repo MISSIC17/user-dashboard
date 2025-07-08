@@ -43,7 +43,7 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
   --font-geist-sans: "Geist", sans-serif;
-  --font-courier-prime: "Courier Prime", monospace;
+  --font-grotesk: "Space Grotesk", sans-serif;
 }
 
 :root {
@@ -144,7 +144,7 @@
 }
 
 .table-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #50535e;
+  background-color: var(--color-gray-300);
   border-radius: 0.3rem;
 }
 
@@ -152,19 +152,8 @@
   background-color: transparent;
   border-radius: 0.3rem;
 }
-@media (prefers-color-scheme: dark) {
-  .table-scrollbar::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
 
-  .table-scrollbar::-webkit-scrollbar-thumb {
-    background-color: #9a9ca4;
-    border-radius: 0.3rem;
-  }
-
-  .table-scrollbar::-webkit-scrollbar-track {
-    background-color: transparent;
-    border-radius: 0.3rem;
-  }
+.dark .table-scrollbar::-webkit-scrollbar-thumb {
+  background-color: var(--color-gray-600);
+  border-radius: 0.3rem;
 }

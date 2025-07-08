@@ -1,44 +1,60 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-type TStatus = "todo" | "in-progress" | "done";
-type TodoState = Array<{
-  id: string;
-  name: string;
-  description?: string;
-  status: TStatus;
-}>;
-
-const initialState: TodoState = [];
+import { todosApi } from "@/lib/services/todos";
+import { RootState } from "@/lib/store";
+import { TFilterStatus, TTodo } from "@/types/todos";
+import {
+  createEntityAdapter,
+  createSlice,
+  PayloadAction,
+} from "@reduxjs/toolkit";
+interface TodoState extends ReturnType<typeof todoAdapter.getInitialState> {
+  filter: TFilterStatus;
+}
+const todoAdapter = createEntityAdapter<TTodo>();
+const initialState: TodoState = {
+  ...todoAdapter.getInitialState(),
+  filter: "all",
+};
 const todoSlice = createSlice({
   name: "todo",
   initialState,
   reducers: {
-    addTodo: (
-      state,
-      action: PayloadAction<{ name: string; description?: string }>
-    ) => {
-      console.log(action.payload);
-      const newTodo = {
-        id: crypto.randomUUID(),
-        name: action.payload.name,
-        description: action.payload.description ?? "",
-        status: "todo" as TStatus,
-      };
-      state.push(newTodo);
+    addTodo: {
+      prepare: (title: string) => ({
+        payload: { id: Date.now(), title, completed: false } as TTodo,
+      }),
+      reducer: todoAdapter.addOne,
     },
-    updateTodoStatus: (
-      state,
-      action: PayloadAction<{ id: string; status: TStatus }>
-    ) => {
-      if (state.find((todo) => todo.id === action.payload.id)) {
-        state.find((todo) => todo.id === action.payload.id)!.status =
-          action.payload.status;
+    toggleStatus: (state, action: PayloadAction<{ id: number }>) => {
+      const todo = state.entities[action.payload.id];
+      if (todo) {
+        todo.completed = !todo.completed;
       }
     },
-    deleteTodo: (state, action: PayloadAction<{ id: string }>) => {
-      return state.filter((todo) => todo.id !== action.payload.id);
+    setFilter: (state, action: PayloadAction<TFilterStatus>) => {
+      state.filter = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addMatcher(
+      todosApi.endpoints.getTodos.matchFulfilled,
+      (state, { payload }) => todoAdapter.setAll(state, payload)
+    );
   },
 });
 
-export const { addTodo, updateTodoStatus, deleteTodo } = todoSlice.actions;
+export const { addTodo, toggleStatus, setFilter } = todoSlice.actions;
 export default todoSlice.reducer;
+export const { selectAll: selectTodos, selectById: selectTodoById } =
+  todoAdapter.getSelectors<RootState>((s) => s.todo);
+export const selectFilteredTodos = (state: RootState) => {
+  const allTodos = selectTodos(state);
+  const filter = state.todo.filter;
+  switch (filter) {
+    case "active":
+      return allTodos.filter((todo) => !todo.completed);
+    case "completed":
+      return allTodos.filter((todo) => todo.completed);
+    default:
+      return allTodos;
+  }
+};

@@ -4,6 +4,7 @@ import "./globals.css";
 import StoreProvider from "./store-provider";
 import { ThemeProvider } from "next-themes";
 import { Navbar } from "@/components/custom/navbar";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,6 +34,8 @@ export default function RootLayout({
           className={`${geistSans.variable} ${grotesk.variable} antialiased`}
         >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <Toaster richColors />
+
             <Navbar />
 
             {children}
